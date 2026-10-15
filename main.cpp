@@ -24,22 +24,26 @@ int main() {
                     cout << "Sarasas pilnas, ivestis negalima." << endl;
                     break;
                 }
-                int x;
                 cout << "Iveskite mokinio varda: ";
                 cin >> mokiniai[mokiniuKiekis];
-                cout << "Iveskite kiek pazymiu turi mokinys (1-10): ";
-                cin >> x;
-                while (x < 1 || x > 10) {
-                    cout << "Ivestis neteisinga. Iveskite kiek pazymiu turi mokinys (1-10): ";
-                    cin >> x;
-                }
-                for (int i = 0; i < x; i++) {
-                    cout << "Iveskite " << i+1 << " pazymi (1-10): ";
-                    cin >> pazymiai[mokiniuKiekis][i];
-                    while (pazymiai[mokiniuKiekis][i] < 1 || pazymiai[mokiniuKiekis][i] > 10) {
-                        cout << "Ivestis neteisinga. Iveskite " << i+1 << " pazymi (1-10): ";
-                        cin >> pazymiai[mokiniuKiekis][i];
+                for (int i = 0; i < 10; i++) {
+                    int ivestis;
+                    cout << "Iveskite " << i+1 << " pazymi (1-10) (-1, kad baigti ivesti): ";
+                    cin >> ivestis;
+                    if (ivestis == -1) {
+                        break;
                     }
+                    while (ivestis < 1 || ivestis > 10) {
+                        cout << "Ivestis neteisinga. Iveskite " << i+1 << " pazymi (1-10) (-1, kad baigti ivesti): ";
+                        cin >> ivestis;
+                        if (ivestis == -1) {
+                            break;
+                        }
+                    }
+                    if (ivestis == -1) {
+                        break;
+                    }
+                    pazymiai[mokiniuKiekis][i] = ivestis;
                     pazymiuKiekis[mokiniuKiekis]++;
                 }
                 mokiniuKiekis++;
@@ -56,10 +60,14 @@ int main() {
             }
             case 3: {
                 int y = mokinioPaieska(mokiniuKiekis,  mokiniai);
-                while (y == -1) {
+                while (y == -2) {
                     cout << "Mokinys nerastas." << endl;
                     y = mokinioPaieska(mokiniuKiekis,  mokiniai);
+                    if(y == -1)
+                        break;
                 }
+                if (y == -1)
+                    break;
                 cout << mokiniai[y] << ":";
                 for (int j = 0; j < pazymiuKiekis[y]; j++){
                     cout << " " << pazymiai[y][j];
@@ -70,10 +78,14 @@ int main() {
             case 4: {
                 int y = mokinioPaieska(mokiniuKiekis, mokiniai);
                 int x;
-                while (y == -1) {
+                while (y == -2) {
                     cout << "Mokinys nerastas." << endl;
                     y = mokinioPaieska(mokiniuKiekis,  mokiniai);
+                    if(y == -1)
+                        break;
                 }
+                if (y == -1)
+                    break;
                 cout << "Iveskite kuri pazymi norite atnaujinti (1-" << pazymiuKiekis[y] << "): ";
                 cin >> x;
                 while (x < 1 || x > pazymiuKiekis[y]) {
@@ -92,10 +104,14 @@ int main() {
             case 5: {
                 double vidurkis = 0;
                 int y = mokinioPaieska(mokiniuKiekis, mokiniai);
-                while (y == -1) {
+                while (y == -2) {
                     cout << "Mokinys nerastas." << endl;
                     y = mokinioPaieska(mokiniuKiekis,  mokiniai);
+                    if(y == -1)
+                        break;
                 }
+                if (y == -1)
+                    break;
                 if (pazymiuKiekis[y] > 0) {
                     for (int i = 0; i < pazymiuKiekis[y]; i++) {
                         vidurkis += static_cast<double>(pazymiai[y][i]);
@@ -112,10 +128,14 @@ int main() {
                 }
 
                 int y = mokinioPaieska(mokiniuKiekis, mokiniai);
-                while (y == -1) {
+                while (y == -2) {
                     cout << "Mokinys nerastas." << endl;
                     y = mokinioPaieska(mokiniuKiekis,  mokiniai);
+                    if(y == -1)
+                        break;
                 }
+                if (y == -1)
+                    break;
                 string laikinasVardas = mokiniai[y];
                 for (int i = y; i < mokiniuKiekis - 1; i++) {
                     mokiniai[i] = mokiniai[i+1];
@@ -154,11 +174,16 @@ void meniu() {
 
 int mokinioPaieska (int mokiniuKiekis, string *mokiniai) {
     string mokinys;
-    int y = -1;
-    cout << "Iveskite mokinio kurio ieskote varda: ";
+    int y = -2;
+    cout << "Iveskite mokinio kurio ieskote varda (norint atsaukti iveskite 'atsaukti'): ";
     cin >> mokinys;
+
     for (char &c : mokinys){
         c = toupper(c); //verciam mokinys i uppercase, kad isvengti neatitikimu
+    }
+
+    if (mokinys == "ATSAUKTI") {
+        return -1;
     }
 
     for (int i = 0; i < mokiniuKiekis; i++) {
@@ -170,6 +195,9 @@ int mokinioPaieska (int mokiniuKiekis, string *mokiniai) {
             y = i;
             return y;
         }
+        if (laikinasVardas == "ATSAUKTI") {
+            return -1;
+        }
     }
-    return -1;
+    return -2;
 }
