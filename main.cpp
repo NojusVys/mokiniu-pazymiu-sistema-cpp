@@ -29,13 +29,26 @@ int main() {
                     cin >> x;
                 }
                 for (int i = 0; i < x; i++) {
-                    cout << "Iveskite " << i+1 << " pazymi: ";
+                    cout << "Iveskite " << i+1 << " pazymi (1-10): ";
                     cin >> pazymiai[mokiniuKiekis][i];
+                    while (pazymiai[mokiniuKiekis][i] < 1 || pazymiai[mokiniuKiekis][i] > 10) {
+                        cout << "Ivestis neteisinga. Iveskite " << i+1 << " pazymi (1-10): ";
+                        cin >> pazymiai[mokiniuKiekis][i];
+                    }
                     pazymiuKiekis[mokiniuKiekis]++;
                 }
                 mokiniuKiekis++;
                 break;
-            case 2:
+            case 2: {
+                for (int i = 0; i < mokiniuKiekis; i++) {
+                    cout << mokiniai[i] << ":";
+                    for (int j = 0; j < pazymiuKiekis[i]; j++){
+                        cout << " " << pazymiai[i][j];
+                    }
+                    cout << endl;
+                }
+                break;
+            }
             case 3:
             case 4:
             case 5:
