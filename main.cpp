@@ -89,8 +89,25 @@ int main() {
                 }
                 break;
             }
-            case 5:
-            case 6:
+            case 5: {
+                double vidurkis = 0;
+                int y = mokinioPaieska(mokiniuKiekis, mokiniai);
+                while (y == -1) {
+                    cout << "Mokinys nerastas." << endl;
+                    y = mokinioPaieska(mokiniuKiekis,  mokiniai);
+                }
+                if (pazymiuKiekis[y] > 0) {
+                    for (int i = 0; i < pazymiuKiekis[y]; i++) {
+                        vidurkis += static_cast<double>(pazymiai[y][i]);
+                    }
+                    cout << fixed << setprecision(2) << "Mokinio " << mokiniai[y] << " vidurkis: " << vidurkis / pazymiuKiekis[y] << endl;
+                } else
+                    cout << "Mokinys neturi pazymiu." << endl;
+                break;
+            }
+            case 6: {
+                break;
+            }
             case 7: {
                 cout << "Programa baigiama." << endl;
                 arVeikia = false;
