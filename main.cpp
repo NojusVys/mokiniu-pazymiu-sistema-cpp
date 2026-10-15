@@ -56,21 +56,26 @@ int main() {
             }
             case 3: {
                 int y = mokinioPaieska(mokiniuKiekis,  mokiniai);
+                while (y == -1) {
+                    cout << "Mokinys nerastas." << endl;
+                    y = mokinioPaieska(mokiniuKiekis,  mokiniai);
+                }
+                cout << mokiniai[y] << ":";
+                for (int j = 0; j < pazymiuKiekis[y]; j++){
+                    cout << " " << pazymiai[y][j];
+                }
+                cout << endl;
+                break;
+            }
+            case 4: {
+                int y = mokinioPaieska(mokiniuKiekis, mokiniai);
                 if (y != -1) {
-                    cout << mokiniai[y] << ":";
-                    for (int j = 0; j < pazymiuKiekis[y]; j++){
-                        cout << " " << pazymiai[y][j];
-                    }
-                    cout << endl;
+
                     break;
                 } else {
                     cout << "Mokinys nerastas." << endl;
                     break;
                 }
-            }
-            case 4: {
-
-                break;
             }
             case 5:
             case 6:
