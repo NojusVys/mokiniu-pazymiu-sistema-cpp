@@ -4,6 +4,7 @@
 using namespace std;
 
 void meniu();
+int mokinioPaieska(int mokiniuKiekis, string *mokiniai);
 
 int main() {
     string mokiniai[100];
@@ -54,15 +55,8 @@ int main() {
                 break;
             }
             case 3: {
-                string mokinys;
-                int y = 0;
-                cout << "Iveskite mokinio kurio ieskote varda: ";
-                cin >> mokinys;
-                for (int i = 0; i < mokiniuKiekis; i++) {
-                    if (mokiniai[i] == mokinys)
-                        y = i;
-                }
-                if (y != 0) {
+                int y = mokinioPaieska(mokiniuKiekis,  mokiniai);
+                if (y != -1) {
                     cout << mokiniai[y] << ":";
                     for (int j = 0; j < pazymiuKiekis[y]; j++){
                         cout << " " << pazymiai[y][j];
@@ -74,7 +68,10 @@ int main() {
                     break;
                 }
             }
-            case 4:
+            case 4: {
+
+                break;
+            }
             case 5:
             case 6:
             case 7: {
@@ -99,4 +96,26 @@ void meniu() {
     cout << "6. Pasalinti mokini." << endl;
     cout << "7. Iseiti." << endl;
     cout << "Prasome pasirinkti: ";
+}
+
+int mokinioPaieska (int mokiniuKiekis, string *mokiniai) {
+    string mokinys;
+    int y = -1;
+    cout << "Iveskite mokinio kurio ieskote varda: ";
+    cin >> mokinys;
+    for (char &c : mokinys){
+        c = toupper(c); //verciam mokinys i uppercase, kad isvengti neatitikimu
+    }
+
+    for (int i = 0; i < mokiniuKiekis; i++) {
+        string laikinasVardas = mokiniai[i];
+        for (char &c : laikinasVardas){
+            c = toupper(c); //verciam laikinasVardas i uppercase, kad isvengti neatitikimu
+        }
+        if (laikinasVardas == mokinys) {
+            y = i;
+            return y;
+        }
+    }
+    return -1;
 }
