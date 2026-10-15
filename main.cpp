@@ -19,6 +19,10 @@ int main() {
 
         switch (pasirinkimas) {
             case 1:
+                if (mokiniuKiekis >= 100) {
+                    cout << "Sarasas pilnas, ivestis negalima." << endl;
+                    break;
+                }
                 int x;
                 cout << "Iveskite mokinio varda: ";
                 cin >> mokiniai[mokiniuKiekis];
@@ -49,7 +53,27 @@ int main() {
                 }
                 break;
             }
-            case 3:
+            case 3: {
+                string mokinys;
+                int y = 0;
+                cout << "Iveskite mokinio kurio ieskote varda: ";
+                cin >> mokinys;
+                for (int i = 0; i < mokiniuKiekis; i++) {
+                    if (mokiniai[i] == mokinys)
+                        y = i;
+                }
+                if (y != 0) {
+                    cout << mokiniai[y] << ":";
+                    for (int j = 0; j < pazymiuKiekis[y]; j++){
+                        cout << " " << pazymiai[y][j];
+                    }
+                    cout << endl;
+                    break;
+                } else {
+                    cout << "Mokinys nerastas." << endl;
+                    break;
+                }
+            }
             case 4:
             case 5:
             case 6:
