@@ -46,7 +46,7 @@ int main() {
                 break;
             case 2: {
                 for (int i = 0; i < mokiniuKiekis; i++) {
-                    cout << mokiniai[i] << ":";
+                    cout << left << setw(15) << mokiniai[i] << ":";
                     for (int j = 0; j < pazymiuKiekis[i]; j++){
                         cout << " " << pazymiai[i][j];
                     }
@@ -106,6 +106,27 @@ int main() {
                 break;
             }
             case 6: {
+                if (mokiniuKiekis == 0) {
+                    cout << "Mokiniu nera, operacija negalima." << endl;
+                    break;
+                }
+
+                int y = mokinioPaieska(mokiniuKiekis, mokiniai);
+                while (y == -1) {
+                    cout << "Mokinys nerastas." << endl;
+                    y = mokinioPaieska(mokiniuKiekis,  mokiniai);
+                }
+                string laikinasVardas = mokiniai[y];
+                for (int i = y; i < mokiniuKiekis - 1; i++) {
+                    mokiniai[i] = mokiniai[i+1];
+                    pazymiuKiekis[i] = pazymiuKiekis[i+1];
+
+                    for (int j = 0; j < 10; j++) {
+                        pazymiai[i][j] = pazymiai[i+1][j];
+                    }
+                }
+                mokiniuKiekis--;
+                cout << "Mokinys " << laikinasVardas << " sekmingai pasalintas." << endl;
                 break;
             }
             case 7: {
@@ -117,7 +138,6 @@ int main() {
                 cout << "Pasirinkimas negalimas, bandykite dar karta." << endl;
         }
     }
-
     return 0;
 }
 
