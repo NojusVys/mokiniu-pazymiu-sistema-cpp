@@ -1,0 +1,65 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+void meniu();
+
+int main() {
+    string mokiniai[100];
+    int pazymiai[100][10];
+    int mokiniuKiekis = 0;
+    int pazymiuKiekis[100] = {0};
+    bool arVeikia = true;
+
+    while(arVeikia){
+        int pasirinkimas;
+        meniu();
+        cin >> pasirinkimas;
+
+        switch (pasirinkimas) {
+            case 1:
+                int x;
+                cout << "Iveskite mokinio varda: ";
+                cin >> mokiniai[mokiniuKiekis];
+                cout << "Iveskite kiek pazymiu turi mokinys (1-10): ";
+                cin >> x;
+                while (x < 1 || x > 10) {
+                    cout << "Ivestis neteisinga. Iveskite kiek pazymiu turi mokinys (1-10): ";
+                    cin >> x;
+                }
+                for (int i = 0; i < x; i++) {
+                    cout << "Iveskite " << i+1 << " pazymi: ";
+                    cin >> pazymiai[mokiniuKiekis][i];
+                    pazymiuKiekis[mokiniuKiekis]++;
+                }
+                mokiniuKiekis++;
+                break;
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7: {
+                cout << "Programa baigiama." << endl;
+                arVeikia = false;
+                break;
+            }
+            default:
+                cout << "Pasirinkimas negalimas, bandykite dar karta." << endl;
+        }
+    }
+
+    return 0;
+}
+
+void meniu() {
+    cout << "1. Ivesti mokini ir jo pazymius." << endl;
+    cout << "2. Perziureti visu mokiniu pazymius." << endl;
+    cout << "3. Perziureti konkretaus mokinio pazymius." << endl;
+    cout << "4. Atnaujinti pazymi." << endl;
+    cout << "5. Apskaiciuoti mokinio vidurki." << endl;
+    cout << "6. Pasalinti mokini." << endl;
+    cout << "7. Iseiti." << endl;
+    cout << "Prasome pasirinkti: ";
+}
