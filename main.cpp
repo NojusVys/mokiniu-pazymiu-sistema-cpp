@@ -69,13 +69,25 @@ int main() {
             }
             case 4: {
                 int y = mokinioPaieska(mokiniuKiekis, mokiniai);
-                if (y != -1) {
-
-                    break;
-                } else {
+                int x;
+                while (y == -1) {
                     cout << "Mokinys nerastas." << endl;
-                    break;
+                    y = mokinioPaieska(mokiniuKiekis,  mokiniai);
                 }
+                cout << "Iveskite kuri pazymi norite atnaujinti (1-" << pazymiuKiekis[y] << "): ";
+                cin >> x;
+                while (x < 1 || x > pazymiuKiekis[y]) {
+                    cout << "Ivestis neteisinga. Iveskite kuri pazymi norite atnaujinti (1-" << pazymiuKiekis[y] << "): ";
+                    cin >> x;
+                }
+                x -= 1;
+                cout << "Iveskite nauja pazymi (1-10): ";
+                cin >> pazymiai[y][x];
+                while (pazymiai[y][x] < 1 || pazymiai[y][x] > 10) {
+                    cout << "Ivestis neteisinga. Iveskite nauja pazymi (1-10): ";
+                    cin >> pazymiai[y][x];
+                }
+                break;
             }
             case 5:
             case 6:
