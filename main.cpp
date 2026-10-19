@@ -179,7 +179,7 @@ int mokinioPaieska (int mokiniuKiekis, string *mokiniai) {
     cin >> mokinys;
 
     for (char &c : mokinys){
-        c = toupper(c); //verciam mokinys i uppercase, kad isvengti neatitikimu
+        c = toupper(c);
     }
 
     if (mokinys == "ATSAUKTI") {
@@ -189,7 +189,7 @@ int mokinioPaieska (int mokiniuKiekis, string *mokiniai) {
     for (int i = 0; i < mokiniuKiekis; i++) {
         string laikinasVardas = mokiniai[i];
         for (char &c : laikinasVardas){
-            c = toupper(c); //verciam laikinasVardas i uppercase, kad isvengti neatitikimu
+            c = toupper(c);
         }
         if (laikinasVardas == mokinys) {
             y = i;
